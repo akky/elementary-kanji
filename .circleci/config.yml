@@ -44,6 +44,9 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
         
 
+      # prepare kanji data by scraping MEXT site
+      - run: yarn scrape
+
       # run tests!
       - run: yarn test
 
