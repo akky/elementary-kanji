@@ -5,10 +5,9 @@ module.exports = function(config) {
         files: [
             'data/elementary-kanji-array.js',
             'data/elementary-kanji-json.js',
+            '*.html',
             'scripts/findAndReplaceDOMText.js',
             'scripts/replacer.js',
-            'scripts/tools.js',
-            '*.html',
             // 'background.js',   chrome object does not exist in text env. what should I do?
             'unittest/**/*.js'
         ],
