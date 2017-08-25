@@ -66,11 +66,11 @@ jobs:
       - store_artifacts:
           path: /tmp/artifacts
 
-      - deploy:
-          name: Deploy Firefox 
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ./node_modules/web-ext/bin/web-ext sign --api-key $AMO_API_KEY --api-secret $AMO_API_SECRET;
-            else
-              echo "Not master branch so not deploying"
-            fi
+#      - deploy:
+#          name: Deploy Firefox 
+#          command: |
+#            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+#              ./node_modules/web-ext/bin/web-ext sign --api-key $AMO_API_KEY --api-secret $AMO_API_SECRET;
+#            else
+#              echo "Not master branch so not deploying"
+#            fi
