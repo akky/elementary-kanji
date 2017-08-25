@@ -1,0 +1,73 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:7.10.1
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          # add library mainly for test (though browser test is not done. just for using Karma.) 
+          name: add libraries
+          command: |
+            sudo apt-get install -y libgconf2-4 libnss3-1d libxss1 libasound2 libatk1.0-0 libcups2 libgtk-3-0 libxcomposite1 libxcursor1 libxi6 libxrandr2 libxtst6 fonts-liberation libappindicator1 lsb-release xdg-utils
+            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb;
+            sudo dpkg -i google-chrome-stable_current_amd64.deb;
+            sudo apt-get install -f;
+
+      # install developer tools
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+        
+
+      # run tests!
+      - run: yarn test
+
+      - run:
+          name: create Chrome package
+          command: |
+            mkdir /tmp/artifacts;
+            mkdir /tmp/artifacts/chrome;
+            zip -r /tmp/artifacts/chrome/elementary_kanji_$CIRCLE_BUILD_NUM.zip scripts/*.js _locales icons/*.png;
+
+      - run:
+          name: create Firefox package
+          command: |
+            ./node_modules/web-ext/bin/web-ext build;
+            mv web-ext-artifacts /tmp/artifacts/firefox;
+
+      - store_artifacts:
+          path: /tmp/artifacts
+
+      - deploy:
+          name: Deploy Firefox 
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ./node_modules/web-ext/bin/web-ext sign --api-key $AMO_API_KEY --api-secret $AMO_API_SECRET;
+            else
+              echo "Not master branch so not deploying"
+            fi

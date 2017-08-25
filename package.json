@@ -1,0 +1,43 @@
+{
+  "name": "cybozu-download-suppress",
+  "description": "Stop file download on specific Cybozu services",
+  "version": "1.0.0",
+  "private": true,
+  "files": [
+    "*.js"
+  ],
+  "scripts": {
+    "scrape": "node scripts/scraper/scraper.js",
+    "lint": "eslint scripts/*.js && stylelint css/*.css",
+    "beautify": "eslint --fix scripts/*.js && stylelint --fix css/*.css",
+    "check_firefox_compatibility": "wemf ./manifest.json --validate",
+    "test": "karma start karma.conf.js",
+    "pack": "zip -r extension.zip manifest.json scripts/*.js css/*.css data/*.js _locales icons/*.png"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-eslint": "*",
+    "chai": "*",
+    "chrome-webstore-upload-cli": "^1.1.1",
+    "eslint": "*",
+    "jsdom": "^11.2.0",
+    "karma": "*",
+    "karma-chai": "*",
+    "karma-chrome-launcher": "*",
+    "karma-coverage": "*",
+    "karma-html2js-preprocessor": "^1.1.0",
+    "karma-mocha": "*",
+    "mocha": "^3.4.2",
+    "scrape-it": "^3.3.2",
+    "stylelint": "^8.0.0",
+    "web-ext": "^2.0.0",
+    "wemf": "^1.1.5"
+  },
+  "author": "Akky Akimoto",
+  "license": "MIT",
+  "main": "background.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": []
+}

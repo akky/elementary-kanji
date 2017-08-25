@@ -1,0 +1,89 @@
+.grade_0 {
+  background-color: #C7DFFF;
+}
+.grade_1 {
+  background-color: #C5FFF7;
+}
+.grade_2 {
+  background-color: #C3FFCC;
+}
+.grade_3 {
+  background-color: #E2FFC1;
+}
+.grade_4 {
+  background-color: #F8FFC0;
+}
+.grade_5 {
+  background-color: #FFD7BE;
+}
+.grade_6 {
+  background-color: #FFC0BC;
+}
+.grade_none {
+  background-color: #FFF;
+}
+
+span.grade_0:after {
+  content: "1ねんせい";
+}
+span.grade_1:after {
+  content: "2ねんせい";
+}
+span.grade_2:after {
+  content: "3ねんせい";
+}
+span.grade_3:after {
+  content: "4ねんせい";
+}
+span.grade_4:after {
+  content: "5ねんせい";
+}
+span.grade_5:after {
+  content: "6ねんせい";
+}
+
+span.grade_0,
+span.grade_1,
+span.grade_2,
+span.grade_3,
+span.grade_4,
+span.grade_5,
+span.grade_6 {
+  position: relative;
+}
+
+span.grade_0:after,
+span.grade_1:after,
+span.grade_2:after,
+span.grade_3:after,
+span.grade_4:after,
+span.grade_5:after {
+  display: block;
+  position: absolute;
+  font-size: 16px;
+  font-weight: 900;
+  left: 1em;
+  width: 5em;
+  padding: 0.1em;
+  text-align: center;
+  background-color: #FFC;
+  border: 1px solid #993;
+  z-index: 9999;
+  transition: 100ms;
+  opacity: 0;
+  bottom: -1em;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+}
+span.grade_0:hover:after,
+span.grade_1:hover:after,
+span.grade_2:hover:after,
+span.grade_3:hover:after,
+span.grade_4:hover:after,
+span.grade_5:hover:after {
+  transition-delay: 100ms;
+  opacity: 1;
+  bottom: -2em;
+}
