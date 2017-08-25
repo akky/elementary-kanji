@@ -52,7 +52,7 @@ jobs:
           command: |
             mkdir /tmp/artifacts;
             mkdir /tmp/artifacts/chrome;
-            zip -r /tmp/artifacts/chrome/elementary_kanji_$CIRCLE_BUILD_NUM.zip scripts/*.js _locales icons/*.png;
+            zip -r /tmp/artifacts/chrome/elementary_kanji_$CIRCLE_BUILD_NUM.zip manifest.json scripts/*.js css/*.css data/*.js _locales icons/*.png;
 
       - run:
           name: create Firefox package
