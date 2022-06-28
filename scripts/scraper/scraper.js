@@ -17,18 +17,24 @@ function parseKanjiList(original) {
 }
 
 scrapeIt(data_source_url, {
-    kanjisInText: { listItem: ".text_content td" }
-}).then(page => {
-//    console.log(page.kanjis);
+    items : {
+        listItem: ".text_content td"
+    }
+}).then(({ data, response }) => {
+    console.log(`Status Code: ${response.statusCode}`)
+    //console.log(data)
+    if (!data.items) {
+        return console.log("failed to fetch kanjis from " + data_source_url);
+    }
 
     let allKanjiList = [];
-    page.kanjisInText.forEach(function(value, index) {
-//        console.log(index, value);
+    data.items.forEach(function(value, index) {
+        // console.log(index, value);
 
         let kanjiArray = parseKanjiList(value);
         allKanjiList[index] = kanjiArray;
     });
-//    console.log(kanjiList);
+    console.log(allKanjiList);
 
     // sanity check
     assert(allKanjiList.length == 6, 'there should be 6 grades');
@@ -41,7 +47,8 @@ scrapeIt(data_source_url, {
 
     saveAsJavascriptArray(allKanjiList);
     saveAsJavascriptStringArray(allKanjiList);
-});
+
+})
 
 function saveAsJavascriptArray(allKanjiList) {
     fs.writeFile(JAVASCRIPT_JSON_FILENAME, 'const allKanjiList = ' + JSON.stringify(allKanjiList), function (err) {

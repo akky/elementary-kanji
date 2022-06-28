@@ -40,8 +40,8 @@ function html_converter(letter, grade) {
 
 function span_wrapper(node, grade) {
     let span=document.createElement('span'); 
-//  node.appendChild(span); 
-//div.innerText="test123";
+    //  node.appendChild(span); 
+    //div.innerText="test123";
     span.nodeValue = node.nodeValue;
     node.parentNode.replaceChild(span, node);
 
@@ -82,27 +82,27 @@ console.log(clone);
     for (let i=0 ; i < originalText.length ; i++) {
         let currentLetter = originalText[i];
         let grade = getGradeOfLetter(currentLetter);
-//console.log(grade, currentLetter);
+        //console.log(grade, currentLetter);
         if (grade === null) {
             currentText += currentLetter;
         } else {
-//console.log(currentLetter);
+            //console.log(currentLetter);
             // create text node by previous letter
             if (currentText !== '') {
                 let newTextNode = document.createTextNode(currentText);
-//console.log("currentText", currentText);
+                //console.log("currentText", currentText);
                 currentText = '';
 
                 childrenNodes.push(newTextNode);
             }
 
             // create span node
-//console.log("currentLetter", currentLetter);
+            //console.log("currentLetter", currentLetter);
             let span = document.createElement('span'); 
             span.innerText = currentLetter;
             span.setAttribute('class', 'grade_' + grade);
 
-//          originalNode.parentNode.appendChild(span);
+            //          originalNode.parentNode.appendChild(span);
             childrenNodes.push(span);
         }
     }
@@ -112,17 +112,17 @@ console.log(clone);
         div.appendChild(value);
     });
 
-// DOMの順序を壊す操作は、すべてループの異常となってしまう
-//  https://stackoverflow.com/questions/31956960/dom-treewalker-to-return-all-text-nodes
-//    originalNode.parentNode.insertBefore(div, originalNode.nextSibling);
-//    originalNode.parentNode.replaceChild(div, originalNode);
+    // DOMの順序を壊す操作は、すべてループの異常となってしまう
+    //  https://stackoverflow.com/questions/31956960/dom-treewalker-to-return-all-text-nodes
+    //    originalNode.parentNode.insertBefore(div, originalNode.nextSibling);
+    //    originalNode.parentNode.replaceChild(div, originalNode);
     // remove original node, as all text are copied now
-//    originalNode.parentNode.removeChild(originalNode);
+    //    originalNode.parentNode.removeChild(originalNode);
 
-// DOMの更新操作が入る場合、TreeWalkerでやるのは筋が悪いのかもしれない
+    // DOMの更新操作が入る場合、TreeWalkerでやるのは筋が悪いのかもしれない
 
-// こういうのもあるにはあるけど
-//   https://j11y.io/javascript/replacing-text-in-the-dom-solved/
+    // こういうのもあるにはあるけど
+    //   https://j11y.io/javascript/replacing-text-in-the-dom-solved/
 
 
 }
@@ -139,7 +139,7 @@ function replaceAllTextNode() {
     while (walker.nextNode()) {
         if (walker.currentNode.nodeValue.trim()) { // if a node is not empty
             replaceTextWithProcessedNodeTree(walker.currentNode);
-/*            walker.currentNode.textContent = replaceNodeText(
+            /*            walker.currentNode.textContent = replaceNodeText(
                 walker.currentNode.nodeValue,
                 html_converter
             );
@@ -179,7 +179,7 @@ function replaceOneGradeByRegexp(grade) {
     findAndReplaceDOMText(document.body, {
         find: kanjiRegExp,
         wrap: 'span',
-/*      replace: function(portion, match) {
+        /*      replace: function(portion, match) {
             called = true;
             var el = document.createElement('em');
             el.style.backgroundColor = '#c00';
@@ -187,7 +187,7 @@ function replaceOneGradeByRegexp(grade) {
             return el;
         },
         */      wrapClass: 'grade_' + grade
-//      forceContext: root.findAndReplaceDOMText.NON_INLINE_PROSE
+        //      forceContext: root.findAndReplaceDOMText.NON_INLINE_PROSE
     });
 }
 
