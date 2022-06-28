@@ -59,7 +59,7 @@ jobs:
       - run:
           name: create Firefox package
           command: |
-            ./node_modules/web-ext/bin/web-ext build;
+            node ./node_modules/web-ext/bin/web-ext.js build;
             mv web-ext-artifacts /tmp/artifacts/firefox;
 
       - store_artifacts:
