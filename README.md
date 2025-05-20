@@ -77,7 +77,8 @@ This extension is by MIT License
 
 ## CI
 
-CI runs on GitHub Actions. It installs Chrome, sets `CHROME_BIN`, and fetches kanji data with `yarn scrape` before running Karma tests.
+CI runs on GitHub Actions. It installs Chrome and sets `CHROME_BIN` so Karma can launch `ChromeHeadless`.
+The workflow also runs `yarn scrape` to fetch kanji data before tests.
 
 Packed extension zip would be uploaded on artifact section on the successful build.
 
