@@ -10,23 +10,13 @@
         "48": "icons/icon48.png",
         "128": "icons/icon128.png"
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "*://*/*"
-            ],
-            "js": [
-                "data/elementary-kanji-array.js",
-                "data/elementary-kanji-json.js",
-                "scripts/findAndReplaceDOMText.js",
-                "scripts/replacer.js"
-            ],
-            "css": ["css/kanji_grades.css"],
-            "run_at": "document_end"
-        }
-    ],
+    "background": {
+        "service_worker": "scripts/background.js"
+    },
+    "action": {},
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "scripting"
     ],
     "short_name": "ElmKanji"
 }
