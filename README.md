@@ -77,7 +77,7 @@ This extension is by MIT License
 
 ## CI
 
-using CircleCI 2.0
+CI runs on GitHub Actions. It installs Chrome and sets `CHROME_BIN` so Karma can launch `ChromeHeadless`.
 
 Packed extension zip would be uploaded on artifact section on the successful build.
 
@@ -107,8 +107,8 @@ cf. [Is it possible to auto\-update a chrome extension published on the chrome w
 
 requires external library and/or API for this.
 
- * [Wikipedia í—pŠ¿šˆê——(“Ç‚İ‚ ‚è)](https://ja.wikipedia.org/wiki/%E5%B8%B8%E7%94%A8%E6%BC%A2%E5%AD%97%E4%B8%80%E8%A6%A7)
- * [í—pŠ¿š•\ on github by someone](https://github.com/cjkvi/cjkvi-tables)
+ * [Wikipedia å¸¸ç”¨æ¼¢å­—ä¸€è¦§(èª­ã¿ã‚ã‚Š)](https://ja.wikipedia.org/wiki/%E5%B8%B8%E7%94%A8%E6%BC%A2%E5%AD%97%E4%B8%80%E8%A6%A7)
+ * [å¸¸ç”¨æ¼¢å­—è¡¨ on github by someone](https://github.com/cjkvi/cjkvi-tables)
 
 ## ToDo: expand to Middle and High-school
 
