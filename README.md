@@ -45,7 +45,7 @@ This takes kanji list from Mext website, format them in JavaScript file to be im
 ## packaging
 
 ~~~
-$ yarn pack
+$ yarn run pack
 ~~~
 
 This only packs neccessary files for deployment on Extension stores. (currently for Chrome store)
