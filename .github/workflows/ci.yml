@@ -22,6 +22,22 @@ jobs:
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
       - name: Set CHROME_BIN env
-        run: echo "CHROME_BIN=$(which google-chrome)" >> $GITHUB_ENV
+        run: echo "CHROME_BIN=$(which google-chrome google-chrome-stable chromium-browser chromium | head -n 1)" >> $GITHUB_ENV
+      - name: Run lint
+        run: yarn lint
       - name: Run tests
         run: yarn test
+      - name: Pack extension
+        run: yarn pack
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension
+          path: extension.zip
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: extension.zip
+          tag: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}

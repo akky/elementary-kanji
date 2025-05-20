@@ -8,7 +8,6 @@ module.exports = {
   parserOptions: {
     sourceType: "module",
   },
-  "plugins": ["@babel"],
   rules: {
     "indent": ["error", 4],
     "linebreak-style": ["error", "unix"],
