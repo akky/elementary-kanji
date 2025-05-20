@@ -1,0 +1,6 @@
+{
+  "release-type": "node",
+  "package-name": "elementary-kanji",
+  "extra-files": ["manifest.json"]
+}
+
