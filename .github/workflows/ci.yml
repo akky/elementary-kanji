@@ -29,15 +29,11 @@ jobs:
         run: yarn test
       - name: Pack extension
         run: yarn run pack
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: extension
-          path: extension.zip
-      - name: Create Release
+      - name: Upload Release Asset
         if: startsWith(github.ref, 'refs/tags/')
         uses: ncipollo/release-action@v1
         with:
           artifacts: extension.zip
           tag: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
+          allowUpdates: true

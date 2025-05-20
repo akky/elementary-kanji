@@ -81,8 +81,8 @@ CI runs on GitHub Actions with the workflow defined at `.github/workflows/ci.yml
 It installs Chrome and sets `CHROME_BIN` so Karma can launch `ChromeHeadless`.
 The workflow also runs `yarn scrape` to fetch kanji data before tests.
 
-Packed extension zip would be uploaded on artifact section on the successful build.
-When a tag starting with `v` is pushed, the workflow creates a numbered GitHub release with `extension.zip` attached.
+After a successful build, the packed extension zip is attached to a GitHub Release.
+GitHub Releases are tagged using semantic versioning (v1.0.0, v1.0.1, ...) and include `extension.zip` for download.
 
 ## deployment
 
