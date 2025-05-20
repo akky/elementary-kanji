@@ -77,7 +77,8 @@ This extension is by MIT License
 
 ## CI
 
-CI runs on GitHub Actions. It installs Chrome and sets `CHROME_BIN` so Karma can launch `ChromeHeadless`.
+CI runs on GitHub Actions with the workflow defined at `.github/workflows/ci.yml`.
+It installs Chrome and sets `CHROME_BIN` so Karma can launch `ChromeHeadless`.
 The workflow also runs `yarn scrape` to fetch kanji data before tests.
 
 Packed extension zip would be uploaded on artifact section on the successful build.
@@ -93,13 +94,13 @@ You need to register API and get keys manually.
 
 create project: [webstore-publish]
 
-It is not really practical. Oauth call gives you refresh token but that works only in 3600 seconds. Oauth from CircleCI(or other tool) would be complecated.
+It is not really practical. Oauth call gives you refresh token but that works only in 3600 seconds. Oauth from GitHub Actions (or other tool) would be complecated.
 
 cf. [Is it possible to auto\-update a chrome extension published on the chrome web store? \- Stack Overflow](https://stackoverflow.com/questions/13139627/is-it-possible-to-auto-update-a-chrome-extension-published-on-the-chrome-web-sto/26754858)
 
 ### Firefox
 
-[Build and Sign WebExtensions with CircleCI - mkelly\.me](http://www.mkelly.me/blog/build-and-sign-webextensions-with-circleci/)
+[Build and Sign WebExtensions - mkelly\.me](http://www.mkelly.me/blog/build-and-sign-webextensions-with-circleci/)
 
 
 
