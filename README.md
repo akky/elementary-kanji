@@ -80,8 +80,8 @@ This extension is by MIT License
 CI runs on GitHub Actions. It installs Chrome and sets `CHROME_BIN` so Karma can launch `ChromeHeadless`.
 The workflow also runs `yarn scrape` to fetch kanji data before tests.
 
-The workflow packs the extension into `extension.zip` which is uploaded as a build artifact.
-When a tag starting with `v` is pushed, the same zip file is attached to a numbered GitHub release.
+After packaging, the workflow uploads `extension.zip` as a build artifact.
+When a tag starting with `v` is pushed, the workflow creates a numbered GitHub release with `extension.zip` attached.
 
 ## deployment
 

@@ -22,9 +22,7 @@ jobs:
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
       - name: Set CHROME_BIN env
-        run: |
-          CHROME_PATH="$(which google-chrome-stable || which google-chrome || which chromium-browser)"
-          echo "CHROME_BIN=$CHROME_PATH" >> $GITHUB_ENV
+        run: echo "CHROME_BIN=$(command -v google-chrome || command -v chromium-browser || command -v chromium)" >> $GITHUB_ENV
       - name: Run lint
         run: yarn lint
       - name: Run tests
