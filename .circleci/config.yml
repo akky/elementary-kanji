@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: cimg/node:18.4.0-browsers
+      - image: cimg/node:lts-browsers
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -26,15 +26,12 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run:
-          # add library mainly for test (though browser test is not done. just for using Karma.) 
-          name: add libraries
-          command: |
-            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-            sudo dpkg -i google-chrome-stable_current_amd64.deb;
-            sudo apt-get install -f;
+      # Chrome is already included in the browsers image
 
       # install developer tools
+      - run:
+          name: Upgrade yarn
+          command: sudo npm install -g yarn@1.22.21 --force
       - run: yarn install
 
       - save_cache:
