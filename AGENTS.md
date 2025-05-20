@@ -24,7 +24,7 @@ yarn test
 Both commands should succeed. If the environment lacks network access and dependencies are missing, document this limitation in your PR message.
 
 ## Building
-To create a distribution package, run `yarn pack` after tests pass. This generates `extension.zip` for deployment.
+To create a distribution package, run `yarn pack` after tests pass. This generates `elementary-kanji-extension.zip` for deployment.
 
 ## Browser Compatibility
 Ensure the extension remains compatible with Manifest V3 for Chrome and with Firefox via `web-ext`. Use the latest stable Chrome Extension SDK and update build scripts when new versions are released. Do not remove existing tooling without discussion.
