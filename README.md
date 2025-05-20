@@ -17,6 +17,14 @@ $ yarn test
 The above command invokes Karma test runner. Karma auto-requires js modules (like as Chrome Extension env does) so test code can call them.
 
 Karma always comes with (headless) browser, which I do not use now. Test runner without client browser would fit better for this project but I could not find.
+If you see an error about `ChromeHeadless` not being found, set the `CHROME_BIN`
+environment variable to the path of your Chrome or Chromium binary, for example:
+
+~~~bash
+export CHROME_BIN=$(which google-chrome || which chromium-browser || which chromium)
+~~~
+
+This is required when running tests locally.
 
 ## lint and fix
 
@@ -45,7 +53,7 @@ This takes kanji list from Mext website, format them in JavaScript file to be im
 ## packaging
 
 ~~~
-$ yarn pack
+$ yarn run pack
 ~~~
 
 This only packs neccessary files for deployment on Extension stores. (currently for Chrome store)
