@@ -28,7 +28,7 @@ jobs:
       - name: Run tests
         run: yarn test
       - name: Pack extension
-        run: yarn pack
+        run: yarn run pack
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:

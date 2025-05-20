@@ -14,6 +14,14 @@ With this Chrome extension, when you show a web page, kanji are emphasized by it
 $ yarn test
 ~~~
 
+Before running this command locally, export `CHROME_BIN` to the path of your
+Chrome or Chromium executable:
+
+~~~
+$ export CHROME_BIN=$(which google-chrome)
+$ yarn test
+~~~
+
 The above command invokes Karma test runner. Karma auto-requires js modules (like as Chrome Extension env does) so test code can call them.
 
 Karma always comes with (headless) browser, which I do not use now. Test runner without client browser would fit better for this project but I could not find.
@@ -45,7 +53,7 @@ This takes kanji list from Mext website, format them in JavaScript file to be im
 ## packaging
 
 ~~~
-$ yarn pack
+$ yarn run pack
 ~~~
 
 This only packs neccessary files for deployment on Extension stores. (currently for Chrome store)
@@ -72,7 +80,8 @@ This extension is by MIT License
 
   * install [node](https://nodejs.org/en/)  (I recommend nvm for Windows)
   * install [yarn](https://yarnpkg.com/)
-  * 
+  * set `CHROME_BIN` to your local Chrome or Chromium executable before running
+    tests
 
 
 ## CI
