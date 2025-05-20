@@ -17,6 +17,8 @@ jobs:
           cache: 'yarn'
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+      - name: Fetch kanji data
+        run: yarn scrape
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
       - name: Set CHROME_BIN env
