@@ -33,7 +33,6 @@
     "nth-check": "^2.1.1",
     "scrape-it": "^6.1.4",
     "stylelint": "^16.15.0",
-    "stylelint-stylistic": "^2.1.0",
     "syncyarnlock": "^1.0.19",
     "web-ext": "^8.4.0",
     "wemf": "^1.3.0"
