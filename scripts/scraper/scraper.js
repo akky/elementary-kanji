@@ -1,7 +1,8 @@
 'use strict'
 
 // source and output
-const data_source_url = 'http://www.mext.go.jp/a_menu/shotou/new-cs/youryou/syo/koku/001.htm';
+const data_source_url = 'https://www.mext.go.jp/a_menu/shotou/new-cs/youryou/syo/koku/001.htm';
+const LOCAL_HTML_PATH = 'data/mext-kanji-table.html';
 const JAVASCRIPT_JSON_FILENAME = 'data/elementary-kanji-json.js';
 const JAVASCRIPT_STRING_ARRAY_FILENAME = 'data/elementary-kanji-array.js';
 
@@ -16,25 +17,30 @@ function parseKanjiList(original) {
     return countRemoved.split('　');
 }
 
-scrapeIt(data_source_url, {
-    items : {
-        listItem: ".text_content td"
+async function fetchKanjiItems() {
+    try {
+        return await scrapeIt(data_source_url, {
+            items: { listItem: '.text_content td' }
+        });
+    } catch (err) {
+        console.log('failed to fetch kanjis from ' + data_source_url + ', using local file.');
+        const localHtml = fs.readFileSync(LOCAL_HTML_PATH, 'utf8');
+        return await scrapeIt({ html: localHtml }, {
+            items: { listItem: '.text_content td' }
+        });
     }
-}).then(({ data, response }) => {
-    console.log(`Status Code: ${response.statusCode}`)
-    //console.log(data)
+}
+
+fetchKanjiItems().then(({ data }) => {
     if (!data.items) {
-        return console.log("failed to fetch kanjis from " + data_source_url);
+        return console.log('failed to obtain kanji list');
     }
 
     let allKanjiList = [];
-    data.items.forEach(function(value, index) {
-        // console.log(index, value);
-
+    data.items.forEach(function (value, index) {
         let kanjiArray = parseKanjiList(value);
         allKanjiList[index] = kanjiArray;
     });
-    console.log(allKanjiList);
 
     // sanity check
     assert(allKanjiList.length == 6, 'there should be 6 grades');
@@ -47,8 +53,7 @@ scrapeIt(data_source_url, {
 
     saveAsJavascriptArray(allKanjiList);
     saveAsJavascriptStringArray(allKanjiList);
-
-})
+});
 
 function saveAsJavascriptArray(allKanjiList) {
     fs.writeFile(JAVASCRIPT_JSON_FILENAME, 'const allKanjiList = ' + JSON.stringify(allKanjiList), function (err) {
