@@ -31,7 +31,9 @@ for (const name of ruleNames) {
     const plugin = createNoopRule(fullName);
     plugin.ruleName = fullName;
     plugin.messages = stylelint.utils.ruleMessages(fullName, {});
+    plugin.meta = { url: 'https://github.com/stylelint/stylelint-stylistic' };
     rules[name] = plugin;
 }
 
 module.exports = { rules };
+module.exports.default = { rules };
