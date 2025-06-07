@@ -1,5 +1,4 @@
-/*--- Eslint suppress ---*/
-/* eslint-disable no-unused-vars */
+/*--- ESLint globals ---*/
 /* global allKanjiList */
 /* global allKanjiStringArray */
 /* global findAndReplaceDOMText */
