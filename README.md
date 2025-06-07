@@ -118,7 +118,7 @@ requires external library and/or API for this.
 
 ## ToDo: expand to on'yomi/kun'yomi grades
 
-  cf. http://www.mext.go.jp/a_menu/shotou/new-cs/1385768.htm
+  cf. https://www.mext.go.jp/a_menu/shotou/new-cs/1385768.htm
 
 ## ToDo: add to show readings for kanji
 
