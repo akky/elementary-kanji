@@ -1,4 +1,4 @@
-const allKanjiStingArray = [
+const allKanjiStringArray = [
   '字右左見',
   '',
   '漢感',

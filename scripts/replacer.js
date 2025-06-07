@@ -1,7 +1,7 @@
 /*--- Eslint suppress ---*/
 /* eslint-disable no-unused-vars */
 /* global allKanjiList */
-/* global allKanjiStingArray */
+/* global allKanjiStringArray */
 /* global findAndReplaceDOMText */
 
 'use strict';
@@ -183,7 +183,7 @@ function replaceByRegexp() {
 }
 
 function replaceOneGradeByRegexp(grade) {
-    let kanjiString = allKanjiStingArray[grade];
+    let kanjiString = allKanjiStringArray[grade];
     let kanjiRegExp = new RegExp('[' + kanjiString + ']', 'gmu');
     findAndReplaceDOMText(document.body, {
         find: kanjiRegExp,

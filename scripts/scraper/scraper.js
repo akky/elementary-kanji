@@ -61,16 +61,16 @@ function saveAsJavascriptArray(allKanjiList) {
 
 function saveAsJavascriptStringArray(allKanjiList) {
     let html = '';
-    let allKanjiStingArray = [];
+    let allKanjiStringArray = [];
     for (let i=0 ; i<6 ; i++) {
         let regexp = '';
         allKanjiList[i].forEach(function(value) {
             regexp += value;
         });
-        allKanjiStingArray[i] = regexp;
+        allKanjiStringArray[i] = regexp;
     }
 
-    fs.writeFile(JAVASCRIPT_STRING_ARRAY_FILENAME, 'const allKanjiStingArray = ' + JSON.stringify(allKanjiStingArray), function (err) {
+    fs.writeFile(JAVASCRIPT_STRING_ARRAY_FILENAME, 'const allKanjiStringArray = ' + JSON.stringify(allKanjiStringArray), function (err) {
         if (err) {
             return console.log(err);
         }
