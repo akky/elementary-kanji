@@ -7,6 +7,14 @@
 'use strict';
 
 const MAX_ELEMENTARY_GRADE = 6;
+const GRADE_LABELS = [
+    '1ねんせい',
+    '2ねんせい',
+    '3ねんせい',
+    '4ねんせい',
+    '5ねんせい',
+    '6ねんせい'
+];
 
 function hasLetterInGrade(letter, grade) {
     return allKanjiList[grade].some(function (kanji) {
@@ -171,6 +179,7 @@ function replaceByRegexp() {
     for (let grade=0 ; grade<MAX_ELEMENTARY_GRADE ; grade++) {
         replaceOneGradeByRegexp(grade);
     }
+    applyTooltipData();
 }
 
 function replaceOneGradeByRegexp(grade) {
@@ -178,16 +187,22 @@ function replaceOneGradeByRegexp(grade) {
     let kanjiRegExp = new RegExp('[' + kanjiString + ']', 'gmu');
     findAndReplaceDOMText(document.body, {
         find: kanjiRegExp,
-        wrap: 'span',
-        /*      replace: function(portion, match) {
-            called = true;
-            var el = document.createElement('em');
-            el.style.backgroundColor = '#c00';
-            el.innerHTML = portion.text;
-            return el;
-        },
-        */      wrapClass: 'grade_' + grade
+        replace: function (portion) {
+            const span = document.createElement('span');
+            span.textContent = portion.text;
+            span.className = 'grade_' + grade;
+            return span;
+        }
         //      forceContext: root.findAndReplaceDOMText.NON_INLINE_PROSE
+    });
+}
+
+function applyTooltipData() {
+    GRADE_LABELS.forEach(function (label, index) {
+        document.querySelectorAll('span.grade_' + index).forEach(function (el) {
+            el.classList.add('kanji-grade');
+            el.dataset.gradeLabel = label;
+        });
     });
 }
 

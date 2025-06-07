@@ -45,7 +45,7 @@ This takes kanji list from Mext website, format them in JavaScript file to be im
 ## packaging
 
 ~~~
-$ yarn pack
+$ yarn run pack
 ~~~
 
 This only packs neccessary files for deployment on Extension stores. (currently for Chrome store)
@@ -77,9 +77,13 @@ This extension is by MIT License
 
 ## CI
 
-using CircleCI 2.0
+CI runs on GitHub Actions with the workflow defined at `.github/workflows/ci.yml`.
+It installs Chrome and sets `CHROME_BIN` so Karma can launch `ChromeHeadless`.
+The workflow also runs `yarn scrape` to fetch kanji data before tests.
 
-Packed extension zip would be uploaded on artifact section on the successful build.
+After a successful build, the packed extension zip is saved as a workflow artifact.
+When a tag starting with `v` is pushed, the workflow also attaches `elementary-kanji-extension.zip` to a GitHub Release.
+GitHub Releases are tagged using semantic versioning (v1.0.0, v1.0.1, ...) and include `elementary-kanji-extension.zip` for download.
 
 ## deployment
 
@@ -91,13 +95,13 @@ You need to register API and get keys manually.
 
 create project: [webstore-publish]
 
-It is not really practical. Oauth call gives you refresh token but that works only in 3600 seconds. Oauth from CircleCI(or other tool) would be complecated.
+It is not really practical. Oauth call gives you refresh token but that works only in 3600 seconds. Oauth from GitHub Actions (or other tool) would be complecated.
 
 cf. [Is it possible to auto\-update a chrome extension published on the chrome web store? \- Stack Overflow](https://stackoverflow.com/questions/13139627/is-it-possible-to-auto-update-a-chrome-extension-published-on-the-chrome-web-sto/26754858)
 
 ### Firefox
 
-[Build and Sign WebExtensions with CircleCI - mkelly\.me](http://www.mkelly.me/blog/build-and-sign-webextensions-with-circleci/)
+[Build and Sign WebExtensions - mkelly\.me](http://www.mkelly.me/blog/build-and-sign-webextensions-with-circleci/)
 
 
 
@@ -107,8 +111,8 @@ cf. [Is it possible to auto\-update a chrome extension published on the chrome w
 
 requires external library and/or API for this.
 
- * [Wikipedia èÌópäøéöàÍóó(ì«Ç›Ç†ÇË)](https://ja.wikipedia.org/wiki/%E5%B8%B8%E7%94%A8%E6%BC%A2%E5%AD%97%E4%B8%80%E8%A6%A7)
- * [èÌópäøéöï\ on github by someone](https://github.com/cjkvi/cjkvi-tables)
+ * [Wikipedia Â∏∏Áî®Êº¢Â≠ó‰∏ÄË¶ß(Ë™≠„Åø„ÅÇ„Çä)](https://ja.wikipedia.org/wiki/%E5%B8%B8%E7%94%A8%E6%BC%A2%E5%AD%97%E4%B8%80%E8%A6%A7)
+ * [Â∏∏Áî®Êº¢Â≠óË°® on github by someone](https://github.com/cjkvi/cjkvi-tables)
 
 ## ToDo: expand to Middle and High-school
 

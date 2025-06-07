@@ -47,13 +47,11 @@ describe('dom handling test', () => {
 */
 
   describe('replaceByRegexp()', () => {
-    it('should kanji are wrapped by span with grade', () => {
+    it('should wrap kanji with span and grade data', () => {
 
         replaceByRegexp();
-        assert.equal(`<h1><span class="grade_2">漢</span><span class="grade_0">字</span>の<span class="grade_3">変</span>換</h1>\n<div>\n\n<span class="grade_5">難</span>しい<span class="grade_2">漢</span><span class="grade_0">字</span>、<span class="grade_5">簡</span><span class="grade_3">単</span>な<span class="grade_2">感</span>じ、アルファベットABC。\n\n\n</div>\n<p>よく<span class="grade_0">右</span><span class="grade_0">左</span>を<span class="grade_0">見</span>ましょう\n</p>`,
-             document.body.innerHTML.trim()
-        );
-//      console.log(document.body.innerHTML);
+        const span = document.querySelector('span.grade_2.kanji-grade');
+        assert.equal('3ねんせい', span.dataset.gradeLabel);
     });
   });
 

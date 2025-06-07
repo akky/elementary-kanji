@@ -23,41 +23,11 @@
   background-color: #FFF;
 }
 
-span.grade_0:after {
-  content: "1ねんせい";
-}
-span.grade_1:after {
-  content: "2ねんせい";
-}
-span.grade_2:after {
-  content: "3ねんせい";
-}
-span.grade_3:after {
-  content: "4ねんせい";
-}
-span.grade_4:after {
-  content: "5ねんせい";
-}
-span.grade_5:after {
-  content: "6ねんせい";
-}
-
-span.grade_0,
-span.grade_1,
-span.grade_2,
-span.grade_3,
-span.grade_4,
-span.grade_5,
-span.grade_6 {
+.kanji-grade {
   position: relative;
 }
 
-span.grade_0:after,
-span.grade_1:after,
-span.grade_2:after,
-span.grade_3:after,
-span.grade_4:after,
-span.grade_5:after {
+.kanji-grade::after {
   display: block;
   position: absolute;
   font-size: 16px;
@@ -70,19 +40,17 @@ span.grade_5:after {
   border: 1px solid #993;
   z-index: 9999;
   transition: 100ms;
+  pointer-events: none;
   opacity: 0;
   bottom: -1em;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   -ms-border-radius: 2px;
   border-radius: 2px;
+  content: attr(data-grade-label);
 }
-span.grade_0:hover:after,
-span.grade_1:hover:after,
-span.grade_2:hover:after,
-span.grade_3:hover:after,
-span.grade_4:hover:after,
-span.grade_5:hover:after {
+
+.kanji-grade:hover::after {
   transition-delay: 100ms;
   opacity: 1;
   bottom: -2em;

@@ -1,5 +1,4 @@
 module.exports = {
-  parser: "@babel/eslint-parser",
   env: {
     browser: true,
     es2021: true,
@@ -8,7 +7,6 @@ module.exports = {
   parserOptions: {
     sourceType: "module",
   },
-  "plugins": ["@babel"],
   rules: {
     "indent": ["error", 4],
     "linebreak-style": ["error", "unix"],
