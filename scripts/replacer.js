@@ -207,4 +207,22 @@ function applyTooltipData() {
 
 //replaceAllText();
 //replaceAllTextNode();
-replaceByRegexp();
+if (typeof module === 'undefined') {
+    // Automatically run when included in the extension
+    replaceByRegexp();
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        hasLetterInGrade,
+        getGradeOfLetter,
+        replaceLetter,
+        replaceNodeText,
+        replaceTextWithProcessedNodeTree,
+        replaceAllTextNode,
+        replaceAllText,
+        replaceByRegexp,
+        replaceOneGradeByRegexp,
+        applyTooltipData
+    };
+}
