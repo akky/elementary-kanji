@@ -11,7 +11,7 @@
     "lint": "eslint scripts/*.js && stylelint css/*.css",
     "beautify": "eslint --fix scripts/*.js && stylelint --fix css/*.css",
     "check_firefox_compatibility": "wemf ./manifest.json --validate",
-    "test": "karma start karma.conf.js",
+    "test": "mocha",
     "pack": "zip -r elementary-kanji-extension.zip manifest.json scripts/*.js css/*.css data/*.js _locales icons/*.png",
     "update_package_json": "node_modules/.bin/syncyarnlock -s -k"
   },

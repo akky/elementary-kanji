@@ -1,9 +1,33 @@
 /*--- ESLint globals ---*/
+/* global window */
 /* global allKanjiList */
 /* global allKanjiStringArray */
 /* global findAndReplaceDOMText */
 
 'use strict';
+
+// `replacer.js` can run both in the browser and in Node for tests.
+// In the browser, the kanji data and the DOM text utility are provided as
+// globals. In Node we expect the test setup to expose the same globals. If
+// not present, fall back to requiring the modules directly so the functions can
+// still operate when invoked from scripts.
+const isCommonJS = typeof module !== 'undefined' && module.exports;
+
+const allKanjiList =
+  (typeof global !== 'undefined' && global.allKanjiList) ? global.allKanjiList
+    : (typeof window !== 'undefined' && window.allKanjiList) ? window.allKanjiList
+      : require('../data/elementary-kanji-json');
+
+const allKanjiStringArray =
+  (typeof global !== 'undefined' && global.allKanjiStringArray) ? global.allKanjiStringArray
+    : (typeof window !== 'undefined' && window.allKanjiStringArray) ? window.allKanjiStringArray
+      : require('../data/elementary-kanji-array');
+
+const findAndReplaceDOMText =
+  (typeof global !== 'undefined' && global.findAndReplaceDOMText) ? global.findAndReplaceDOMText
+    : (typeof window !== 'undefined' && window.findAndReplaceDOMText) ? window.findAndReplaceDOMText
+      : require('./findAndReplaceDOMText');
+
 
 const MAX_ELEMENTARY_GRADE = 6;
 const GRADE_LABELS = [
@@ -207,4 +231,22 @@ function applyTooltipData() {
 
 //replaceAllText();
 //replaceAllTextNode();
-replaceByRegexp();
+if (typeof module === 'undefined') {
+    // Automatically run when included in the extension
+    replaceByRegexp();
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        hasLetterInGrade,
+        getGradeOfLetter,
+        replaceLetter,
+        replaceNodeText,
+        replaceTextWithProcessedNodeTree,
+        replaceAllTextNode,
+        replaceAllText,
+        replaceByRegexp,
+        replaceOneGradeByRegexp,
+        applyTooltipData
+    };
+}

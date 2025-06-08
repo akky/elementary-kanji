@@ -6,3 +6,9 @@ const allKanjiList = [
   [],
   ['難', '簡']
 ];
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = allKanjiList;
+} else {
+  window.allKanjiList = allKanjiList;
+}

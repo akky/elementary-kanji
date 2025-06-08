@@ -6,3 +6,9 @@ const allKanjiStringArray = [
   '',
   '難簡'
 ];
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = allKanjiStringArray;
+} else {
+  window.allKanjiStringArray = allKanjiStringArray;
+}
