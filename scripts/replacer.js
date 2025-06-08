@@ -1,24 +1,32 @@
 /*--- ESLint globals ---*/
 /* global window */
+/* global allKanjiList */
+/* global allKanjiStringArray */
+/* global findAndReplaceDOMText */
 
 'use strict';
 
-// In the browser the data arrays and findAndReplaceDOMText are provided
-// as globals. When running under Node (e.g. in tests), load them directly
-// via require so the functions work without relying on the global scope.
+// `replacer.js` can run both in the browser and in Node for tests.
+// In the browser, the kanji data and the DOM text utility are provided as
+// globals. In Node we expect the test setup to expose the same globals. If
+// not present, fall back to requiring the modules directly so the functions can
+// still operate when invoked from scripts.
 const isCommonJS = typeof module !== 'undefined' && module.exports;
 
-const allKanjiList = isCommonJS
-    ? require('../data/elementary-kanji-json')
-    : window.allKanjiList;
+const allKanjiList =
+  (typeof global !== 'undefined' && global.allKanjiList) ? global.allKanjiList
+    : (typeof window !== 'undefined' && window.allKanjiList) ? window.allKanjiList
+      : require('../data/elementary-kanji-json');
 
-const allKanjiStringArray = isCommonJS
-    ? require('../data/elementary-kanji-array')
-    : window.allKanjiStringArray;
+const allKanjiStringArray =
+  (typeof global !== 'undefined' && global.allKanjiStringArray) ? global.allKanjiStringArray
+    : (typeof window !== 'undefined' && window.allKanjiStringArray) ? window.allKanjiStringArray
+      : require('../data/elementary-kanji-array');
 
-const findAndReplaceDOMText = isCommonJS
-    ? require('./findAndReplaceDOMText')
-    : window.findAndReplaceDOMText;
+const findAndReplaceDOMText =
+  (typeof global !== 'undefined' && global.findAndReplaceDOMText) ? global.findAndReplaceDOMText
+    : (typeof window !== 'undefined' && window.findAndReplaceDOMText) ? window.findAndReplaceDOMText
+      : require('./findAndReplaceDOMText');
 
 
 const MAX_ELEMENTARY_GRADE = 6;
