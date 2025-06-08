@@ -58,7 +58,7 @@ describe('dom handling test', () => {
 
   describe('replaceAllText()', () => {
     it('should annotate kanji with grade info', () => {
-      replacer.replaceAllText();
+      replacer.replaceAllText(document.body);
       const h1Text = document.querySelector('h1').textContent;
       const divText = document.querySelector('div').textContent.trim();
       const pText = document.querySelector('p').textContent;
@@ -72,7 +72,7 @@ describe('dom handling test', () => {
 
   describe('replaceByRegexp()', () => {
     it('should wrap kanji with span and grade data', () => {
-      replacer.replaceByRegexp();
+      replacer.replaceByRegexp(document.body);
       const span = document.querySelector('span.grade_2.kanji-grade');
       expect(span.dataset.gradeLabel).to.equal('3ねんせい');
     });

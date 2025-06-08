@@ -187,9 +187,9 @@ function replaceAllTextNode() {
 }
 
 // handling text insertion (working)
-function replaceAllText() {
+function replaceAllText(root = document.body) {
     var walker = document.createTreeWalker(
-        document.body,
+        root,
         NodeFilter.SHOW_TEXT,  // works only on text nodes
         null,
         false
@@ -205,20 +205,20 @@ function replaceAllText() {
     }
 }
 
-function replaceByRegexp() {
+function replaceByRegexp(root = document.body) {
     for (let grade=0 ; grade<MAX_ELEMENTARY_GRADE ; grade++) {
-        replaceOneGradeByRegexp(grade);
+        replaceOneGradeByRegexp(grade, root);
     }
-    applyTooltipData();
+    applyTooltipData(root);
 }
 
-function replaceOneGradeByRegexp(grade) {
+function replaceOneGradeByRegexp(grade, root = document.body) {
     const kanjiString = allKanjiStringArray[grade];
     if (!kanjiString) {
         return;
     }
     const kanjiRegExp = new RegExp('[' + kanjiString + ']', 'gmu');
-    findAndReplaceDOMText(document.body, {
+    findAndReplaceDOMText(root, {
         find: kanjiRegExp,
         replace: function (portion) {
             const span = document.createElement('span');
@@ -230,9 +230,9 @@ function replaceOneGradeByRegexp(grade) {
     });
 }
 
-function applyTooltipData() {
+function applyTooltipData(root = document) {
     GRADE_LABELS.forEach(function (label, index) {
-        document.querySelectorAll('span.grade_' + index).forEach(function (el) {
+        root.querySelectorAll('span.grade_' + index).forEach(function (el) {
             el.classList.add('kanji-grade');
             el.dataset.gradeLabel = label;
         });
