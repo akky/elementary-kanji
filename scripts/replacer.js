@@ -14,19 +14,25 @@
 const isCommonJS = typeof module !== 'undefined' && module.exports;
 
 const allKanjiList =
-  (typeof global !== 'undefined' && global.allKanjiList) ? global.allKanjiList
-    : (typeof window !== 'undefined' && window.allKanjiList) ? window.allKanjiList
-      : require('../data/elementary-kanji-json');
+    (typeof global !== 'undefined' && global.allKanjiList)
+        ? global.allKanjiList
+        : (typeof window !== 'undefined' && window.allKanjiList)
+            ? window.allKanjiList
+            : require('../data/elementary-kanji-json');
 
 const allKanjiStringArray =
-  (typeof global !== 'undefined' && global.allKanjiStringArray) ? global.allKanjiStringArray
-    : (typeof window !== 'undefined' && window.allKanjiStringArray) ? window.allKanjiStringArray
-      : require('../data/elementary-kanji-array');
+    (typeof global !== 'undefined' && global.allKanjiStringArray)
+        ? global.allKanjiStringArray
+        : (typeof window !== 'undefined' && window.allKanjiStringArray)
+            ? window.allKanjiStringArray
+            : require('../data/elementary-kanji-array');
 
 const findAndReplaceDOMText =
-  (typeof global !== 'undefined' && global.findAndReplaceDOMText) ? global.findAndReplaceDOMText
-    : (typeof window !== 'undefined' && window.findAndReplaceDOMText) ? window.findAndReplaceDOMText
-      : require('./findAndReplaceDOMText');
+    (typeof global !== 'undefined' && global.findAndReplaceDOMText)
+        ? global.findAndReplaceDOMText
+        : (typeof window !== 'undefined' && window.findAndReplaceDOMText)
+            ? window.findAndReplaceDOMText
+            : require('./findAndReplaceDOMText');
 
 
 const MAX_ELEMENTARY_GRADE = 6;

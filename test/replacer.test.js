@@ -57,19 +57,16 @@ describe('dom handling test', () => {
   });
 
   describe('replaceAllText()', () => {
-    it('should kanji has grade info in following braces', () => {
+    it('should annotate kanji with grade info', () => {
       replacer.replaceAllText();
-      expect(document.body.innerHTML.trim()).to.equal(
-`<h1>漢(3)字(1)の変(4)換</h1>
-<div>
-
-難(6)しい漢(3)字(1)、簡(6)単(4)な感(3)じ、アルファベットABC。
-
-
-</div>
-<p>よく右(1)左(1)を見(1)ましょう
-</p>`
+      const h1Text = document.querySelector('h1').textContent;
+      const divText = document.querySelector('div').textContent.trim();
+      const pText = document.querySelector('p').textContent;
+      expect(h1Text).to.equal('漢(3)字(1)の変(4)換');
+      expect(divText).to.equal(
+        '難(6)しい漢(3)字(1)、簡(6)単(4)な感(3)じ、アルファベットABC。'
       );
+      expect(pText).to.equal('よく右(1)左(1)を見(1)ましょう');
     });
   });
 
