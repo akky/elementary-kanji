@@ -2,10 +2,11 @@ const { expect } = require('chai');
 const { JSDOM } = require('jsdom');
 const fs = require('fs');
 const path = require('path');
-const findAndReplaceDOMText = require('../scripts/findAndReplaceDOMText');
-const replacer = require('../scripts/replacer');
-const allKanjiList = require('../data/elementary-kanji-json');
-const allKanjiStringArray = require('../data/elementary-kanji-array');
+
+let findAndReplaceDOMText;
+let replacer;
+let allKanjiList;
+let allKanjiStringArray;
 
 const html = fs.readFileSync(path.join(__dirname, '..', 'test.html'), 'utf8');
 
@@ -21,6 +22,11 @@ describe('dom handling test', () => {
     global.document = document;
     global.Node = window.Node;
     global.NodeFilter = window.NodeFilter;
+    // Load scripts after globals are defined
+    findAndReplaceDOMText = require('../scripts/findAndReplaceDOMText');
+    replacer = require('../scripts/replacer');
+    allKanjiList = require('../data/elementary-kanji-json');
+    allKanjiStringArray = require('../data/elementary-kanji-array');
     global.findAndReplaceDOMText = findAndReplaceDOMText;
     global.allKanjiList = allKanjiList;
     global.allKanjiStringArray = allKanjiStringArray;
@@ -34,6 +40,14 @@ describe('dom handling test', () => {
     delete global.findAndReplaceDOMText;
     delete global.allKanjiList;
     delete global.allKanjiStringArray;
+    delete require.cache[require.resolve('../scripts/findAndReplaceDOMText')];
+    delete require.cache[require.resolve('../scripts/replacer')];
+    delete require.cache[require.resolve('../data/elementary-kanji-json')];
+    delete require.cache[require.resolve('../data/elementary-kanji-array')];
+    findAndReplaceDOMText = undefined;
+    replacer = undefined;
+    allKanjiList = undefined;
+    allKanjiStringArray = undefined;
   });
 
   describe('replaceAllText()', () => {
