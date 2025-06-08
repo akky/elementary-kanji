@@ -1,7 +1,7 @@
 {
   "name": "elementary-kanji",
   "description": "Show Kanji leaned at Japanese elementary school by grade",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "files": [
     "*.js"
