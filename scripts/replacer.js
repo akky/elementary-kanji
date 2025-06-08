@@ -46,11 +46,12 @@ const GRADE_LABELS = [
 ];
 
 function hasLetterInGrade(letter, grade) {
-    return allKanjiList[grade].some(function (kanji) {
-        if (kanji === letter) {
-            return true;
-        }
+    const list = allKanjiList[grade];
+    if (!Array.isArray(list)) {
         return false;
+    }
+    return list.some(function (kanji) {
+        return kanji === letter;
     });
 }
 
@@ -212,8 +213,11 @@ function replaceByRegexp() {
 }
 
 function replaceOneGradeByRegexp(grade) {
-    let kanjiString = allKanjiStringArray[grade];
-    let kanjiRegExp = new RegExp('[' + kanjiString + ']', 'gmu');
+    const kanjiString = allKanjiStringArray[grade];
+    if (!kanjiString) {
+        return;
+    }
+    const kanjiRegExp = new RegExp('[' + kanjiString + ']', 'gmu');
     findAndReplaceDOMText(document.body, {
         find: kanjiRegExp,
         replace: function (portion) {
