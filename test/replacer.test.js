@@ -29,6 +29,9 @@ describe('dom handling test', () => {
     global.findAndReplaceDOMText = findAndReplaceDOMText;
     global.allKanjiList = allKanjiList;
     global.allKanjiStringArray = allKanjiStringArray;
+    window.findAndReplaceDOMText = findAndReplaceDOMText;
+    window.allKanjiList = allKanjiList;
+    window.allKanjiStringArray = allKanjiStringArray;
     replacer = require('../scripts/replacer');
   });
 
@@ -40,6 +43,9 @@ describe('dom handling test', () => {
     delete global.findAndReplaceDOMText;
     delete global.allKanjiList;
     delete global.allKanjiStringArray;
+    delete window.findAndReplaceDOMText;
+    delete window.allKanjiList;
+    delete window.allKanjiStringArray;
     delete require.cache[require.resolve('../scripts/findAndReplaceDOMText')];
     delete require.cache[require.resolve('../scripts/replacer')];
     delete require.cache[require.resolve('../data/elementary-kanji-json')];
