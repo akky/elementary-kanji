@@ -22,14 +22,14 @@ describe('dom handling test', () => {
     global.document = document;
     global.Node = window.Node;
     global.NodeFilter = window.NodeFilter;
-    // Load scripts after globals are defined
+    // Load data and helper scripts before the replacer so globals are ready
     findAndReplaceDOMText = require('../scripts/findAndReplaceDOMText');
-    replacer = require('../scripts/replacer');
     allKanjiList = require('../data/elementary-kanji-json');
     allKanjiStringArray = require('../data/elementary-kanji-array');
     global.findAndReplaceDOMText = findAndReplaceDOMText;
     global.allKanjiList = allKanjiList;
     global.allKanjiStringArray = allKanjiStringArray;
+    replacer = require('../scripts/replacer');
   });
 
   afterEach(() => {

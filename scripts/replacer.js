@@ -1,9 +1,23 @@
 /*--- ESLint globals ---*/
-/* global allKanjiList */
-/* global allKanjiStringArray */
-/* global findAndReplaceDOMText */
+/* global window */
 
 'use strict';
+
+// In the browser the data arrays and findAndReplaceDOMText are provided
+// as globals. When running under Node (e.g. in tests), load them directly
+// via require so the functions work without relying on the global scope.
+const allKanjiList = (typeof window === 'undefined')
+    ? require('../data/elementary-kanji-json')
+    : window.allKanjiList;
+
+const allKanjiStringArray = (typeof window === 'undefined')
+    ? require('../data/elementary-kanji-array')
+    : window.allKanjiStringArray;
+
+const findAndReplaceDOMText = (typeof window === 'undefined')
+    ? require('./findAndReplaceDOMText')
+    : window.findAndReplaceDOMText;
+
 
 const MAX_ELEMENTARY_GRADE = 6;
 const GRADE_LABELS = [
