@@ -6,15 +6,17 @@
 // In the browser the data arrays and findAndReplaceDOMText are provided
 // as globals. When running under Node (e.g. in tests), load them directly
 // via require so the functions work without relying on the global scope.
-const allKanjiList = (typeof window === 'undefined')
+const isCommonJS = typeof module !== 'undefined' && module.exports;
+
+const allKanjiList = isCommonJS
     ? require('../data/elementary-kanji-json')
     : window.allKanjiList;
 
-const allKanjiStringArray = (typeof window === 'undefined')
+const allKanjiStringArray = isCommonJS
     ? require('../data/elementary-kanji-array')
     : window.allKanjiStringArray;
 
-const findAndReplaceDOMText = (typeof window === 'undefined')
+const findAndReplaceDOMText = isCommonJS
     ? require('./findAndReplaceDOMText')
     : window.findAndReplaceDOMText;
 
