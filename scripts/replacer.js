@@ -14,19 +14,25 @@
 const isCommonJS = typeof module !== 'undefined' && module.exports;
 
 const allKanjiList =
-  (typeof global !== 'undefined' && global.allKanjiList) ? global.allKanjiList
-    : (typeof window !== 'undefined' && window.allKanjiList) ? window.allKanjiList
-      : require('../data/elementary-kanji-json');
+    (typeof global !== 'undefined' && global.allKanjiList)
+        ? global.allKanjiList
+        : (typeof window !== 'undefined' && window.allKanjiList)
+            ? window.allKanjiList
+            : require('../data/elementary-kanji-json');
 
 const allKanjiStringArray =
-  (typeof global !== 'undefined' && global.allKanjiStringArray) ? global.allKanjiStringArray
-    : (typeof window !== 'undefined' && window.allKanjiStringArray) ? window.allKanjiStringArray
-      : require('../data/elementary-kanji-array');
+    (typeof global !== 'undefined' && global.allKanjiStringArray)
+        ? global.allKanjiStringArray
+        : (typeof window !== 'undefined' && window.allKanjiStringArray)
+            ? window.allKanjiStringArray
+            : require('../data/elementary-kanji-array');
 
 const findAndReplaceDOMText =
-  (typeof global !== 'undefined' && global.findAndReplaceDOMText) ? global.findAndReplaceDOMText
-    : (typeof window !== 'undefined' && window.findAndReplaceDOMText) ? window.findAndReplaceDOMText
-      : require('./findAndReplaceDOMText');
+    (typeof global !== 'undefined' && global.findAndReplaceDOMText)
+        ? global.findAndReplaceDOMText
+        : (typeof window !== 'undefined' && window.findAndReplaceDOMText)
+            ? window.findAndReplaceDOMText
+            : require('./findAndReplaceDOMText');
 
 
 const MAX_ELEMENTARY_GRADE = 6;
@@ -40,11 +46,12 @@ const GRADE_LABELS = [
 ];
 
 function hasLetterInGrade(letter, grade) {
-    return allKanjiList[grade].some(function (kanji) {
-        if (kanji === letter) {
-            return true;
-        }
+    const list = allKanjiList[grade];
+    if (!Array.isArray(list)) {
         return false;
+    }
+    return list.some(function (kanji) {
+        return kanji === letter;
     });
 }
 
@@ -180,9 +187,9 @@ function replaceAllTextNode() {
 }
 
 // handling text insertion (working)
-function replaceAllText() {
+function replaceAllText(root = document.body) {
     var walker = document.createTreeWalker(
-        document.body,
+        root,
         NodeFilter.SHOW_TEXT,  // works only on text nodes
         null,
         false
@@ -198,17 +205,20 @@ function replaceAllText() {
     }
 }
 
-function replaceByRegexp() {
+function replaceByRegexp(root = document.body) {
     for (let grade=0 ; grade<MAX_ELEMENTARY_GRADE ; grade++) {
-        replaceOneGradeByRegexp(grade);
+        replaceOneGradeByRegexp(grade, root);
     }
-    applyTooltipData();
+    applyTooltipData(root);
 }
 
-function replaceOneGradeByRegexp(grade) {
-    let kanjiString = allKanjiStringArray[grade];
-    let kanjiRegExp = new RegExp('[' + kanjiString + ']', 'gmu');
-    findAndReplaceDOMText(document.body, {
+function replaceOneGradeByRegexp(grade, root = document.body) {
+    const kanjiString = allKanjiStringArray[grade];
+    if (!kanjiString) {
+        return;
+    }
+    const kanjiRegExp = new RegExp('[' + kanjiString + ']', 'gmu');
+    findAndReplaceDOMText(root, {
         find: kanjiRegExp,
         replace: function (portion) {
             const span = document.createElement('span');
@@ -220,9 +230,9 @@ function replaceOneGradeByRegexp(grade) {
     });
 }
 
-function applyTooltipData() {
+function applyTooltipData(root = document) {
     GRADE_LABELS.forEach(function (label, index) {
-        document.querySelectorAll('span.grade_' + index).forEach(function (el) {
+        root.querySelectorAll('span.grade_' + index).forEach(function (el) {
             el.classList.add('kanji-grade');
             el.dataset.gradeLabel = label;
         });
