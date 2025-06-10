@@ -20,6 +20,9 @@ jobs:
       - name: Run tests
         run: yarn test
 
+      - name: Verify Node.js version
+        run: node --version # Check the installed Node.js version
+
       - uses: google-github-actions/release-please-action@v4
         with:
           release-type: node
