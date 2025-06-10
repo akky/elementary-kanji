@@ -14,6 +14,9 @@ jobs:
           node-version: '24.0.2' # Specify the desired Node.js version
           cache: 'yarn'
 
+      - name: Clear Node.js cache
+        run: rm -rf /opt/hostedtoolcache/node # Clear cached Node.js versions
+
       - name: Install dependencies
         run: yarn install
 
@@ -23,7 +26,7 @@ jobs:
       - name: Verify Node.js version
         run: node --version # Check the installed Node.js version
 
-      - uses: google-github-actions/release-please-action@v4
+      - uses: googleapis/release-please-action@v3
         with:
           release-type: node
           package-name: elementary-kanji
