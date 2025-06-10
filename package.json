@@ -15,7 +15,9 @@
     "pack": "zip -r elementary-kanji-extension.zip manifest.json scripts/*.js css/*.css data/*.js _locales icons/*.png",
     "update_package_json": "node_modules/.bin/syncyarnlock -s -k"
   },
-  "dependencies": {},
+  "dependencies": {
+    "undici": "6.21.3"
+  },
   "devDependencies": {
     "@babel/core": "^7.26.9",
     "@babel/eslint-parser": "7.26.8",

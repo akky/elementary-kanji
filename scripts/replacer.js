@@ -14,19 +14,16 @@
 const isCommonJS = typeof module !== 'undefined' && module.exports;
 
 const allKanjiList =
-  (typeof global !== 'undefined' && global.allKanjiList) ? global.allKanjiList
-    : (typeof window !== 'undefined' && window.allKanjiList) ? window.allKanjiList
-      : require('../data/elementary-kanji-json');
+                        (typeof globalThis !== 'undefined' && globalThis.allKanjiList) ? globalThis.allKanjiList
+                        : require('../data/elementary-kanji-json');
 
 const allKanjiStringArray =
-  (typeof global !== 'undefined' && global.allKanjiStringArray) ? global.allKanjiStringArray
-    : (typeof window !== 'undefined' && window.allKanjiStringArray) ? window.allKanjiStringArray
-      : require('../data/elementary-kanji-array');
+                        (typeof globalThis !== 'undefined' && globalThis.allKanjiStringArray) ? globalThis.allKanjiStringArray
+                        : require('../data/elementary-kanji-array');
 
 const findAndReplaceDOMText =
-  (typeof global !== 'undefined' && global.findAndReplaceDOMText) ? global.findAndReplaceDOMText
-    : (typeof window !== 'undefined' && window.findAndReplaceDOMText) ? window.findAndReplaceDOMText
-      : require('./findAndReplaceDOMText');
+                        (typeof globalThis !== 'undefined' && globalThis.findAndReplaceDOMText) ? globalThis.findAndReplaceDOMText
+                        : require('./findAndReplaceDOMText');
 
 
 const MAX_ELEMENTARY_GRADE = 6;
@@ -65,18 +62,14 @@ function default_converter(letter, grade) {
     return letter + '(' + (grade+1) + ')';
 }
 
-function html_converter(letter, grade) {
+function _html_converter(letter, grade) {
     return '<span class="grade_' + (grade) + '">' + letter + '</span>';
 }
 
-function span_wrapper(node, grade) {
-    let span=document.createElement('span'); 
-    //  node.appendChild(span); 
-    //div.innerText="test123";
+function _span_wrapper(node, _grade) {
+    const span = document.createElement('span');
     span.nodeValue = node.nodeValue;
     node.parentNode.replaceChild(span, node);
-
-//  return '<span class="grade_' + (grade) + '">' + letter + '</span>';
 }
 
 function replaceLetter(letter, converter = default_converter) {
@@ -99,63 +92,30 @@ function replaceNodeText(original, converter = default_converter) {
 }
 
 function replaceTextWithProcessedNodeTree(originalNode) {
-/*  // prepare the same node by clone, then remove all children
-    let clone = originalNode.cloneNode(true);
-console.log(clone);
-    while (clone.firstChild) {
-        clone.removeChild(clone.firstChild);
-    }
-console.log(clone);
-*/
-    let childrenNodes = [];
-    let originalText = originalNode.nodeValue;
+    const childrenNodes = [];
+    const originalText = originalNode.nodeValue;
     let currentText = '';
-    for (let i=0 ; i < originalText.length ; i++) {
-        let currentLetter = originalText[i];
-        let grade = getGradeOfLetter(currentLetter);
-        //console.log(grade, currentLetter);
+    for (let i = 0; i < originalText.length; i++) {
+        const currentLetter = originalText[i];
+        const grade = getGradeOfLetter(currentLetter);
         if (grade === null) {
             currentText += currentLetter;
         } else {
-            //console.log(currentLetter);
-            // create text node by previous letter
             if (currentText !== '') {
-                let newTextNode = document.createTextNode(currentText);
-                //console.log("currentText", currentText);
+                const newTextNode = document.createTextNode(currentText);
                 currentText = '';
-
                 childrenNodes.push(newTextNode);
             }
-
-            // create span node
-            //console.log("currentLetter", currentLetter);
-            let span = document.createElement('span'); 
+            const span = document.createElement('span');
             span.innerText = currentLetter;
             span.setAttribute('class', 'grade_' + grade);
-
-            //          originalNode.parentNode.appendChild(span);
             childrenNodes.push(span);
         }
     }
-
-    let div = document.createElement('div'); 
-    childrenNodes.forEach(function (value, index) {
+    const div = document.createElement('div');
+    childrenNodes.forEach(function (value) {
         div.appendChild(value);
     });
-
-    // DOMの順序を壊す操作は、すべてループの異常となってしまう
-    //  https://stackoverflow.com/questions/31956960/dom-treewalker-to-return-all-text-nodes
-    //    originalNode.parentNode.insertBefore(div, originalNode.nextSibling);
-    //    originalNode.parentNode.replaceChild(div, originalNode);
-    // remove original node, as all text are copied now
-    //    originalNode.parentNode.removeChild(originalNode);
-
-    // DOMの更新操作が入る場合、TreeWalkerでやるのは筋が悪いのかもしれない
-
-    // こういうのもあるにはあるけど
-    //   https://j11y.io/javascript/replacing-text-in-the-dom-solved/
-
-
 }
 
 // handling DOM to insert span (not working yet!)
