@@ -26,6 +26,13 @@ jobs:
       - name: Verify Node.js version
         run: node --version # Check the installed Node.js version
 
+      - name: Check for yarn.lock
+        run: |
+          if [ ! -f yarn.lock ]; then
+            echo "yarn.lock file is missing!"
+            exit 1
+          fi
+
       - uses: googleapis/release-please-action@v3
         with:
           release-type: node
